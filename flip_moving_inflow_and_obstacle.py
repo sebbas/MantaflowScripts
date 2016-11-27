@@ -12,9 +12,9 @@ if (dim==2):
 	gs.z=1
 s = Solver(name='main', gridSize = gs, dim=dim)
 
-narrowBand	   = 3
+narrowBand     = 3
 minParticles   = pow(2,dim)
-frames		   = 500
+frames         = 500
 particleNumber = 2
 randomness     = 0.1
 bWidth         = 1
@@ -22,20 +22,20 @@ inVel          = True
 
 # Adaptive time stepping
 s.frameLength = 0.8				 # length of one frame (in "world time")
-s.cfl		  = 3.0				 # maximal velocity per cell and timestep, 3 is fairly strict
-s.timestep	  = s.frameLength
+s.cfl         = 3.0				 # maximal velocity per cell and timestep, 3 is fairly strict
+s.timestep    = s.frameLength
 s.timestepMin = s.frameLength / 4.  # time step range
 s.timestepMax = s.frameLength * 4.
 
 # prepare grids, particles and mesh
-flags	  = s.create(FlagGrid)
-phi	      = s.create(LevelsetGrid)
-phiIn	  = s.create(LevelsetGrid)
+flags     = s.create(FlagGrid)
+phi       = s.create(LevelsetGrid)
+phiIn     = s.create(LevelsetGrid)
 phiParts  = s.create(LevelsetGrid)
-phiObs	  = s.create(LevelsetGrid)
+phiObs    = s.create(LevelsetGrid)
 phiObsIn  = s.create(LevelsetGrid)
-vel	      = s.create(MACGrid)
-velOld	  = s.create(MACGrid)
+vel       = s.create(MACGrid)
+velOld    = s.create(MACGrid)
 velParts  = s.create(MACGrid)
 pressure  = s.create(RealGrid)
 fractions = s.create(MACGrid)
@@ -46,7 +46,7 @@ mesh      = s.create(Mesh)
 
 # acceleration data for particle nbs
 pindex = s.create(ParticleIndexSystem) 
-gpi	= s.create(IntGrid)
+gpi = s.create(IntGrid)
 
 phi.initFromFlags(flags)
 
