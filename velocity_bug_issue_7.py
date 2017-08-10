@@ -92,12 +92,19 @@ phiObsIn_s1.join( obsBox.computeLevelset() )
 fluidBox = Box( parent=s1, p0=gs_s1*vec3(0.1,0,0.85), p1=gs_s1*vec3(0.15,1.0,0.9))
 phiIn_s1.join( fluidBox.computeLevelset() )
 
+fluidSetVel = vec3(50,0,0)
+
 # cleanup
 def liquid_post_step_low_1():
     forces_s1.clear()
     phiObs_s1.setConst(9999)
 
 def liquid_step_1():
+    # POTENTIAL SOLUTION:
+    # explicitly setting inflow velocity in inflow levelset region
+    fluidBox.applyToGrid(grid=vel_s1, value=fluidSetVel)
+    mapGridToPartsVec3(source=vel_s1, parts=pp_s1, target=pVel_pp1)
+
     pp_s1.advectInGrid(flags=flags_s1, vel=vel_s1, integrationMode=IntRK4, deleteInObstacle=False, stopInObstacle=False)
 	
     pushOutofObs(parts=pp_s1, flags=flags_s1, phiObs=phiObs_s1)
